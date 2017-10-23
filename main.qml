@@ -10,7 +10,9 @@ ApplicationWindow {
 
     ListView {
         model:testModel
-        anchors.centerIn: parent
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: controls.bottom
+        anchors.bottom: parent.bottom
         width:400
         height: 400
         clip:true
@@ -178,26 +180,40 @@ ApplicationWindow {
             testModel.append(Math.random()*100);
     }
 
-    Row {
-        anchors.top:parent.top
+    Column {
+        id:controls
         anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: parent.top
+        Text {
+            text:"model has %1 items".arg(testModel.length)
+            anchors.horizontalCenter: parent.horizontalCenter
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            font.bold: true
+            font.pointSize: 20
+        }
 
-        Repeater {
-            model:[1,10,100]
-
+        Row {
+            anchors.horizontalCenter: parent.horizontalCenter
+            Repeater {
+                model:[1,10,100]
+                Button {
+                    onClicked: addItems(modelData)
+                    text:"Add %1".arg(modelData)
+                }
+            }
             Button {
-                onClicked: addItems(modelData)
-                text:"Add %1".arg(modelData)
+                enabled: testModel.length > 0
+                Behavior on opacity {
+                    SmoothedAnimation {
+                        velocity: 3.0
+                        easing.type: Easing.OutCirc
+                    }
+                }
+                onClicked: testModel.clear()
+                text:"Clear"
             }
         }
-    }
-
-    Text {
-        text:"model has %1 items".arg(testModel.length)
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.top:listView.bottom
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignVCenter
     }
 
 }
