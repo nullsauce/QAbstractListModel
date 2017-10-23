@@ -88,6 +88,7 @@ public slots:
         beginRemoveRows(QModelIndex(), from, to);
         _values.clear();
         endRemoveRows();
+        emit lengthChanged();
     }
 
 
