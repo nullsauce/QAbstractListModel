@@ -81,6 +81,15 @@ public slots:
         emit lengthChanged();
     }
 
+    void clear() {
+        if(length() == 0) return;
+        int from = 0;
+        int to = length() - 1;
+        beginRemoveRows(QModelIndex(), from, to);
+        _values.clear();
+        endRemoveRows();
+    }
+
 
 private:
 
