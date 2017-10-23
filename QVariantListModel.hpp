@@ -16,13 +16,13 @@ public:
 
     }
 
-    int rowCount(const QModelIndex& parent) const {
+    int rowCount(const QModelIndex& parent) const override {
         if (!parent.isValid())
             return 0;
         return _values.size();
     }
 
-    QVariant data(const QModelIndex& index, int role) const {
+    QVariant data(const QModelIndex& index, int role) const override {
         int size = _values.size();
         if (index.row() < 0 || index.row() >= size)
             return QVariant();
