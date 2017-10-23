@@ -6,12 +6,12 @@
 #include <QDebug>
 #include <algorithm>
 
-class AbstractModel : public QAbstractListModel
+class QVariantListModel : public QAbstractListModel
 {
     Q_OBJECT
     Q_PROPERTY(int length READ length NOTIFY lengthChanged)
 public:
-    explicit AbstractModel(QObject *parent = nullptr)
+    explicit QVariantListModel(QObject *parent = nullptr)
         : QAbstractListModel(parent) {
 
     }
